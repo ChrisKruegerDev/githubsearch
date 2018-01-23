@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="colorIcon" format="reference"/>
+    <attr name="colorDivider" format="reference"/>
+    <attr name="colorBackgroundPlaceholderDark" format="reference"/>
+    <attr name="colorBackgroundPlaceholderInline" format="reference"/>
+</resources>

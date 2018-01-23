@@ -1,0 +1,25 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="searchViewStyle">@style/AppSearchView</item>
+
+        <item name="colorIcon">@color/icon</item>
+
+        <item name="android:textColorSecondary">@color/textSecondary</item>
+
+        <item name="colorBackgroundPlaceholderDark">@color/colorBackgroundPlaceholderDark</item>
+        <item name="colorBackgroundPlaceholderInline">@color/colorBackgroundPlaceholderInline</item>
+    </style>
+
+    <style name="AppSearchView" parent="@style/Widget.AppCompat.SearchView">
+        <item name="searchHintIcon">@null</item>
+        <!-- Background for the search query section (e.g. EditText) -->
+        <item name="queryBackground">@null</item>
+        <!-- Background for the actions section (e.g. voice, submit) -->
+        <item name="submitBackground">@null</item>
+    </style>
+
+</resources>
