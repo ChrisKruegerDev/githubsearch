@@ -1,6 +1,7 @@
 package com.gitsearch.ui.main;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.gitsearch.data.model.Pageable;
@@ -26,8 +27,8 @@ import timber.log.Timber;
 
 public class SearchPresenter implements SearchContract.Presenter {
 
-  public static final int START_PAGE = 1;
-  public static final int NO_PAGE = -1;
+  private static final int START_PAGE = 1;
+  private static final int NO_PAGE = -1;
 
   @NonNull
   private final GitHub gitHub;
@@ -35,15 +36,15 @@ public class SearchPresenter implements SearchContract.Presenter {
   @NonNull
   private final SearchContract.View view;
 
+  @Nullable
   private String query;
   private int page = START_PAGE;
   private int lastPage = Integer.MAX_VALUE;
-
   private boolean isLoading = false;
 
   private final CompositeDisposable compositeDisposable;
 
-  SearchPresenter(@NonNull GitHub gitHub, @NonNull SearchContract.View view, String query) {
+  SearchPresenter(@NonNull GitHub gitHub, @NonNull SearchContract.View view, @Nullable String query) {
     this.gitHub = gitHub;
     this.view = view;
     this.query = query;
@@ -56,6 +57,7 @@ public class SearchPresenter implements SearchContract.Presenter {
     compositeDisposable.clear();
   }
 
+  @Nullable
   @Override
   public String getQuery() {
     return query;
@@ -88,8 +90,9 @@ public class SearchPresenter implements SearchContract.Presenter {
   }
 
   private void search(String query) {
+    view.clearRepositories();
+
     if (!TextUtils.isEmpty(query)) {
-      view.clearRepositories();
       searchRepositories(query, START_PAGE);
     }
     else {

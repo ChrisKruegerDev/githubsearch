@@ -28,8 +28,6 @@ import timber.log.Timber;
 @Singleton
 public class GitHub {
 
-  public static final int MAX_RATE_LIMIT_MILLIS = 60 * 1000;
-
   public static final String API_HOST = "api.github.com";
   public static final String API_URL = "https://" + API_HOST;
 
@@ -38,12 +36,14 @@ public class GitHub {
 
   public static final String PARAMETER_PAGE = "page";
 
+  private static final int MAX_RATE_LIMIT_MILLIS = 60 * 1000;
+
   private final Gson gson;
   private OkHttpClient okHttpClient;
   private Retrofit retrofit;
 
-  private AtomicLong lastCheckedTime = new AtomicLong(0);
-  private AtomicInteger currentRateLimit = new AtomicInteger(0);
+  private final AtomicLong lastCheckedTime = new AtomicLong(0);
+  private final AtomicInteger currentRateLimit = new AtomicInteger(0);
 
   @Inject
   public GitHub(Gson gson) {

@@ -40,7 +40,6 @@ public class MainActivity extends BaseActivity {
     super.onCreate(savedInstanceState);
     setSupportActionBar(toolbar);
 
-
     String query;
     if (savedInstanceState == null) {
       query = getIntent().getStringExtra(SearchManager.QUERY);
@@ -76,7 +75,7 @@ public class MainActivity extends BaseActivity {
   public void onSaveInstanceState(Bundle outState) {
     super.onSaveInstanceState(outState);
     if (presenter != null) {
-      outState.putCharSequence(SearchManager.QUERY, presenter.getQuery());
+      outState.putString(SearchManager.QUERY, presenter.getQuery());
     }
   }
 

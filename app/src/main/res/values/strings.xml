@@ -4,6 +4,7 @@
     <string name="search_hint">Search repositories</string>
     <string name="search_label">GitHub repositories</string>
     <string name="start_search">Start new search</string>
+    <string name="avatar">Avatar</string>
 
     <string name="error_no_repositories">No repositories available</string>
     <string name="error_offline">Offline</string>

@@ -6,12 +6,12 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="searchViewStyle">@style/AppSearchView</item>
 
-        <item name="colorIcon">@color/icon</item>
+        <item name="colorIcon">@color/grey_500</item>
 
-        <item name="android:textColorSecondary">@color/textSecondary</item>
+        <item name="android:textColorSecondary">@color/grey_500</item>
 
-        <item name="colorBackgroundPlaceholderDark">@color/colorBackgroundPlaceholderDark</item>
-        <item name="colorBackgroundPlaceholderInline">@color/colorBackgroundPlaceholderInline</item>
+        <item name="colorBackgroundPlaceholderDark">@color/blue_grey_300</item>
+        <item name="colorBackgroundPlaceholderInline">@color/grey_50</item>
     </style>
 
     <style name="AppSearchView" parent="@style/Widget.AppCompat.SearchView">

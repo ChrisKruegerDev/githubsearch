@@ -25,7 +25,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     return false;
   }
 
-
   @LayoutRes
   protected abstract int getLayoutRes();
 

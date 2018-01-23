@@ -11,11 +11,11 @@ import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOption
 
 public class GlideUtils {
 
-  public static final int AVATAR_THUMB_WIDTH = 40;
-  public static final int AVATAR_THUMB_HEIGHT = 40;
+  private static final int AVATAR_THUMB_WIDTH = 40;
+  private static final int AVATAR_THUMB_HEIGHT = 40;
 
-  public static final RequestOptions OPTIONS_CIRCLE = new RequestOptions().circleCrop().dontAnimate();
-  public static final RequestOptions OPTIONS_CIRCLE_THUMB = new RequestOptions().circleCrop().diskCacheStrategy(DiskCacheStrategy.DATA);
+  private static final RequestOptions OPTIONS_CIRCLE = new RequestOptions().circleCrop().dontAnimate();
+  private static final RequestOptions OPTIONS_CIRCLE_THUMB = new RequestOptions().circleCrop().diskCacheStrategy(DiskCacheStrategy.DATA);
 
   public static <E> GlideRequest<Drawable> getAvatar(Context context, GlideRequests requests) {
     Drawable drawable = context.getResources().getDrawable(R.drawable.ic_account_circle_people, context.getTheme());

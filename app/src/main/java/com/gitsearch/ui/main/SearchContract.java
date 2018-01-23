@@ -1,5 +1,7 @@
 package com.gitsearch.ui.main;
 
+import android.support.annotation.Nullable;
+
 import com.gitsearch.data.model.Repository;
 import com.gitsearch.ui.BasePresenter;
 import com.gitsearch.ui.BaseView;
@@ -27,11 +29,14 @@ public interface SearchContract {
     void showFurtherRepositories(List<Repository> results);
 
     boolean isActive();
+
   }
 
   interface Presenter extends BasePresenter {
+
     void startSearch(String query);
 
+    @Nullable
     String getQuery();
 
     void refreshSearch();
@@ -41,5 +46,6 @@ public interface SearchContract {
     boolean isLoading();
 
     boolean hasNextPage();
+
   }
 }
