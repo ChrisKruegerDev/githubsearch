@@ -7,7 +7,7 @@ Injection, MVP, RxJava, Butterknife, Glide and Retrofit.
 - Support libraries
 - RecyclerViews, CardViews and ConstraintLayout
 - [Butterknife](https://github.com/JakeWharton/butterknife)
-- [Dragger](https://github.com/google/dagger)
+- [Dagger](https://github.com/google/dagger)
 - [Glide](https://github.com/bumptech/glide)
 - [gson](https://github.com/google/gson)
 - [okHttp3](https://github.com/square/okhttp)
