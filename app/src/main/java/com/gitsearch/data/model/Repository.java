@@ -4,14 +4,14 @@ import com.google.gson.annotations.SerializedName;
 
 public class Repository {
 
-  public long id;
+    public long id;
 
-  @SerializedName("full_name")
-  public String fullName;
+    @SerializedName("full_name")
+    public String fullName;
 
-  public User owner;
+    public User owner;
 
-  public double score;
+    public double score;
 
 
 }

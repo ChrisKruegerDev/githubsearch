@@ -1,7 +1,6 @@
 package com.gitsearch.ui.main;
 
 import android.support.annotation.Nullable;
-
 import com.gitsearch.data.model.Repository;
 import com.gitsearch.ui.BasePresenter;
 import com.gitsearch.ui.BaseView;
@@ -10,42 +9,42 @@ import java.util.List;
 
 public interface SearchContract {
 
-  interface View extends BaseView<Presenter> {
+    interface View extends BaseView<Presenter> {
 
-    void showEmptyQuery();
+        void showEmptyQuery();
 
-    void showNoRepositories();
+        void showNoRepositories();
 
-    void showLoadingRepositoriesError();
+        void showLoadingRepositoriesError();
 
-    void showProgress(boolean initialSearch);
+        void showProgress(boolean initialSearch);
 
-    void hideProgress();
+        void hideProgress();
 
-    void clearRepositories();
+        void clearRepositories();
 
-    void showRepositories(List<Repository> results);
+        void showRepositories(List<Repository> results);
 
-    void showFurtherRepositories(List<Repository> results);
+        void showFurtherRepositories(List<Repository> results);
 
-    boolean isActive();
+        boolean isActive();
 
-  }
+    }
 
-  interface Presenter extends BasePresenter {
+    interface Presenter extends BasePresenter {
 
-    void startSearch(String query);
+        void startSearch(String query);
 
-    @Nullable
-    String getQuery();
+        @Nullable
+        String getQuery();
 
-    void refreshSearch();
+        void refreshSearch();
 
-    void loadNextPage();
+        void loadNextPage();
 
-    boolean isLoading();
+        boolean isLoading();
 
-    boolean hasNextPage();
+        boolean hasNextPage();
 
-  }
+    }
 }

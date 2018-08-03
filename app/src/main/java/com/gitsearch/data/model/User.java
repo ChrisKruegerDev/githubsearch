@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class User {
 
-  @SerializedName("avatar_url")
-  public String avatarUrl;
+    @SerializedName("avatar_url")
+    public String avatarUrl;
 
 }

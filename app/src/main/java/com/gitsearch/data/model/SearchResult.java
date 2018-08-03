@@ -4,6 +4,6 @@ import java.util.List;
 
 public class SearchResult<T> {
 
-  public List<T> items;
+    public List<T> items;
 
 }
