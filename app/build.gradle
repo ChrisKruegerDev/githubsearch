@@ -1,4 +1,7 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 27
@@ -23,7 +26,6 @@ android {
     buildTypes {
         debug {
             minifyEnabled false
-            // uses the built-in shrinker
             useProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -43,40 +45,49 @@ android {
     testOptions {
         unitTests.returnDefaultValues = true
     }
+
+    androidExtensions {
+        experimental = true
+    }
 }
+
 
 ext {
     supportLibVersion = '27.1.1'
+    componentVersion = '1.1.1'
     glideVersion = '4.7.1'
     retrofitVersion = '2.3.0'
-    daggerVersion = '2.15'
+    daggerVersion = '2.16'
     okHttpVersion = '3.9.1'
-    butterknifeVersion = '8.8.1'
 }
 
 dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
     // android support
     implementation "com.android.support:appcompat-v7:$supportLibVersion"
     implementation "com.android.support:recyclerview-v7:$supportLibVersion"
     implementation 'com.android.support.constraint:constraint-layout:2.0.0-alpha1'
     implementation "com.android.support:design:$supportLibVersion"
     implementation "com.android.support:cardview-v7:$supportLibVersion"
+    implementation "android.arch.paging:runtime:1.0.1"
+    implementation "android.arch.paging:rxjava2:1.0.1"
+    implementation "android.arch.lifecycle:extensions:$componentVersion"
+    implementation "android.arch.lifecycle:viewmodel:$componentVersion"
+    implementation "android.arch.lifecycle:livedata:$componentVersion"
+    kapt "android.arch.lifecycle:compiler:$componentVersion"
 
     // glide
     implementation "com.github.bumptech.glide:glide:$glideVersion"
     implementation "com.github.bumptech.glide:annotations:$glideVersion"
-    annotationProcessor "com.github.bumptech.glide:compiler:$glideVersion"
+    kapt "com.github.bumptech.glide:compiler:$glideVersion"
     implementation "com.github.bumptech.glide:okhttp3-integration:$glideVersion"
     implementation("com.github.bumptech.glide:recyclerview-integration:$glideVersion") {
         // excludes the support library because it's already included by Glide
         transitive = false
     }
 
-    // user interface
-    implementation "com.jakewharton:butterknife:$butterknifeVersion"
-    annotationProcessor "com.jakewharton:butterknife-compiler:$butterknifeVersion"
-
-    // network, parsing, database
+    // data
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
@@ -88,9 +99,11 @@ dependencies {
     implementation 'com.google.guava:guava:24.1-jre'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
     implementation 'io.reactivex.rxjava2:rxjava:2.1.17'
-    compile 'com.jakewharton.timber:timber:4.7.1'
+    implementation 'com.jakewharton.timber:timber:4.7.1'
 
-    implementation "com.google.dagger:dagger-android:$daggerVersion"
-    annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
-    annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
+    implementation "com.google.dagger:dagger-android-support:$daggerVersion"
+    kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+
 }
+

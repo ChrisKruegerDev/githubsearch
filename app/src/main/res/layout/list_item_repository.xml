@@ -6,8 +6,7 @@
                                              android:layout_height="?android:attr/listPreferredItemHeightLarge"
                                              android:background="?android:attr/selectableItemBackground"
                                              android:paddingStart="@dimen/padding_normal"
-                                             android:paddingEnd="@dimen/padding_normal"
-                                             tools:background="#ffbebe">
+                                             android:paddingEnd="@dimen/padding_normal">
 
     <ImageView
         android:id="@+id/avatar"
