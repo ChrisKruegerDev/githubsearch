@@ -3,9 +3,9 @@ package com.gitsearch.data.remote
 import android.arch.lifecycle.Transformations
 import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
-import android.content.Context
 import com.gitsearch.data.remote.paging.RepoDataSourceFactory
 import com.gitsearch.data.remote.paging.RepoSearchResult
+import java.util.concurrent.Executor
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -14,12 +14,12 @@ const val PREFETCH_SIZE = 10
 
 @Singleton
 class GithubSearchRepository @Inject constructor(
-        private val context: Context,
-        private val gitHub: GitHub
+        private val gitHub: GitHub,
+        private val networkExecutor: Executor
 ) {
 
     fun search(query: String): RepoSearchResult {
-        val dataSourceFactory = RepoDataSourceFactory(context, gitHub, query)
+        val dataSourceFactory = RepoDataSourceFactory(gitHub, query, networkExecutor)
 
         val config = PagedList.Config.Builder()
                 .setPageSize(PER_PAGE_SIZE)
@@ -28,13 +28,20 @@ class GithubSearchRepository @Inject constructor(
                 .setEnablePlaceholders(false)
                 .build()
 
-        val data = LivePagedListBuilder(dataSourceFactory, config).build()
+        val data = LivePagedListBuilder(dataSourceFactory, config)
+                .setFetchExecutor(networkExecutor)
+                .build()
+
         val networkState = Transformations.switchMap(dataSourceFactory.repoDataSource) { it.networkState }
         val initialState = Transformations.switchMap(dataSourceFactory.repoDataSource) { it.initialState }
 
-        return RepoSearchResult(data, networkState, initialState) {
-            dataSourceFactory.repoDataSource.value?.invalidate()
-        }
+        return RepoSearchResult(
+                data,
+                networkState,
+                initialState,
+                { dataSourceFactory.repoDataSource.value?.invalidate() },
+                { dataSourceFactory.repoDataSource.value?.retryAllFailed() }
+        )
     }
 
 }

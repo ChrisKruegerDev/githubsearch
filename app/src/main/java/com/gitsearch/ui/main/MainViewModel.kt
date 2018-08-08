@@ -25,35 +25,47 @@ class MainViewModel @Inject constructor(
         githubSearchRepository.search(it)
     }
 
-    val repos: LiveData<PagedList<Repo>> = Transformations.switchMap(repoSearchResult) { it ->
-        it.data
-    }
+    val repos: LiveData<PagedList<Repo>> = Transformations.switchMap(repoSearchResult) { it -> it.data }
     val networkState: LiveData<NetworkState> = Transformations.switchMap(repoSearchResult) { it -> it.networkState }
     val initialState: LiveData<NetworkState> = Transformations.switchMap(repoSearchResult) { it -> it.initialState }
     val emptyState: MediatorLiveData<EmptyState?> = MediatorLiveData()
 
-    private val initialSearch = EmptyState(
-            resources.getString(R.string.search_title),
-            resources.getString(R.string.search_description),
-            R.drawable.ic_search_48,
-            resources.getString(R.string.button_search)
-    )
+    private val initialSearch by lazy {
+        EmptyState(
+                resources.getString(R.string.search_title),
+                resources.getString(R.string.search_description),
+                R.drawable.ic_search_48,
+                resources.getString(R.string.button_search)
+        )
+    }
 
-    private val offlineState = EmptyState(
-            resources.getString(R.string.error_offline),
-            resources.getString(R.string.error_offline_description),
-            R.drawable.ic_cloud_off_48,
-            resources.getString(R.string.button_retry),
-            ::refresh
-    )
+    private val offlineState by lazy {
+        EmptyState(
+                resources.getString(R.string.error_offline),
+                resources.getString(R.string.error_offline_description),
+                R.drawable.ic_cloud_off_48,
+                resources.getString(R.string.button_retry),
+                ::retry
+        )
+    }
 
-    private val errorState = EmptyState(
-            resources.getString(R.string.error_loading_repositories_title),
-            resources.getString(R.string.error_loading_repositories_description),
-            R.drawable.ic_sentiment_dissatisfied_48,
-            resources.getString(R.string.button_retry),
-            ::refresh
-    )
+    private val errorState by lazy {
+        EmptyState(
+                resources.getString(R.string.error_loading_repositories_title),
+                resources.getString(R.string.error_loading_repositories_description),
+                R.drawable.ic_sentiment_dissatisfied_48,
+                resources.getString(R.string.button_retry),
+                ::retry
+        )
+    }
+
+    private val noResultsState by lazy {
+        EmptyState(
+                resources.getString(R.string.error_no_repositories),
+                resources.getString(R.string.error_no_repositories_description),
+                R.drawable.ic_search_48
+        )
+    }
 
     init {
         emptyState.value = initialSearch
@@ -61,10 +73,9 @@ class MainViewModel @Inject constructor(
         emptyState.addSource(initialState) {
             if (it == null) return@addSource
 
-            val list = repoSearchResult.value?.data?.value
-            if (list == null || list.isEmpty())
-                if (initialState.value?.status == Status.RUNNING)
-                    emptyState.value = null
+            val list = repos.value
+            if ((list == null || list.isEmpty()) && it.status == Status.RUNNING)
+                emptyState.value = null
         }
 
         emptyState.addSource(query) {
@@ -79,14 +90,10 @@ class MainViewModel @Inject constructor(
             }
 
             val status = initialState.value?.status
-            if (status == Status.FAILED) {
+            if (status == Status.FAILED)
                 emptyState.value = if (!application.isOnline) offlineState else errorState
-            } else if (status == Status.SUCCESS)
-                emptyState.value = EmptyState(
-                        resources.getString(R.string.error_no_repositories),
-                        resources.getString(R.string.error_no_repositories_description),
-                        R.drawable.ic_search_48
-                )
+            else if (status == Status.SUCCESS)
+                emptyState.value = noResultsState
         }
     }
 
@@ -96,6 +103,10 @@ class MainViewModel @Inject constructor(
 
     fun refresh() {
         repoSearchResult.value?.refresh?.invoke()
+    }
+
+    private fun retry() {
+        repoSearchResult.value?.retry?.invoke()
     }
 
 }

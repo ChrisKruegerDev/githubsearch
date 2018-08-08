@@ -25,5 +25,6 @@ data class RepoSearchResult(
         val data: LiveData<PagedList<Repo>>,
         val networkState: LiveData<NetworkState>,
         val initialState: LiveData<NetworkState>,
-        val refresh: () -> Unit
+        val refresh: () -> Unit,
+        val retry: () -> Unit
 )
