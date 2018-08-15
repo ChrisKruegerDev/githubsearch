@@ -1,12 +1,19 @@
 <resources>
     <string name="app_name" translatable="false">Gitsearch</string>
 
+    <string name="button_search">Search</string>
+    <string name="button_retry">Retry</string>
     <string name="search_hint">Search repositories</string>
     <string name="search_label">GitHub repositories</string>
     <string name="start_search">Start new search</string>
+    <string name="search_title">Search in GitHub</string>
+    <string name="search_description">Find your repositories</string>
     <string name="avatar">Avatar</string>
 
-    <string name="error_no_repositories">No repositories available</string>
-    <string name="error_offline">Offline</string>
-    <string name="error_loading_repositories">Error while loading repositories.</string>
+    <string name="error_no_repositories">No repositories found</string>
+    <string name="error_no_repositories_description">Restart the search with another repository name.</string>
+    <string name="error_offline">You are offline</string>
+    <string name="error_offline_description">Please connect to the internet and try again.</string>
+    <string name="error_loading_repositories_title">Unexpected error</string>
+    <string name="error_loading_repositories_description">Error while loading repositories.</string>
 </resources>
