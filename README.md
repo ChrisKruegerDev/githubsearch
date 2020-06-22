@@ -1,4 +1,4 @@
-# gitsearch
+# githubsearch
 Sample Android application that allows you to search repositories in GitHub. It demonstrates the usage of 
 Injection, MVP, RxJava, Butterknife, Glide and Retrofit.
 
